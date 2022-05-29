@@ -2,10 +2,8 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.json({
-    status: "ok",
-  });
+router.post("/", async (req, res) => {
+  res.send("add");
 });
 
 export default router;

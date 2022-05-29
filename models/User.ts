@@ -1,10 +1,24 @@
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: [true, "Please provide a Username"],
-    }
+  displayName: String,
+  email: String,
+  phoneNumber: Number,
+  photoURL: String,
+  uid: String,
+  college: String,
+  graduationYear: Number,
+  course: String,
+  dob: String,
+  gender: String,
+  address: String,
+  state: String,
+  pinCode: Number,
+  qrCodeUrl: String,
+  createdAt: String,
+  orders: [],
+  score: String,
+  eventRegistered: [],
 });
 
-export default mongoose.models.User || mongoose.model("User", UserSchema);
+export const User = mongoose.models.User || mongoose.model("User", UserSchema);

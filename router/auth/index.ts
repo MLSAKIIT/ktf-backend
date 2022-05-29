@@ -1,12 +1,12 @@
-import { Router } from 'express';
-import register from './register';
-import login from './login';
-import data from './data';
+import { Router } from "express";
+import googleData from "./googleData";
+import userData from "./userData";
+import { authCheck } from "@middleware";
 
 const router = Router();
 
-router.use("/register", register);
-router.use("/login", login);
-router.use("/data", data);
+router.use("/google-data", authCheck, googleData);
+router.use("/user-data", userData);
 
 export default router;
+``;
