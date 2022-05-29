@@ -7,11 +7,19 @@ router.post("/", async (req, res) => {
   const { displayName, email, photoURL, uid, currentUser } = req.body;
 
   // Check if any of the fields are empty
-  if (displayName === "" || email === "" || photoURL === "" || uid === "") {
+  if (!displayName || !email || !photoURL || !uid) {
     return res.status(400).json({
       message: "All fields are required",
     });
   }
+
+  // Check if the uid given by user is same as the uid in the token
+  if (uid !== currentUser.uid) {
+    return res.status(401).json({
+      message: "Unauthorized",
+    });
+  }
+
   // Check if user already exists
   const user = await User.findOne({ email });
   if (user) {

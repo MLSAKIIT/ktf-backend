@@ -2,68 +2,94 @@
 
 ## /auth/google-data
 
-> POST (user only) (Firebase auth token required)
-
 Save the data we get from Google login
 
-## /auth/user-data
-
 > POST (user only) (Firebase auth token required)
+
+### Authentication:
+```
+Bearer <Firebase auth token>
+```
+
+### Body:
+```json
+{
+    "displayName": "",
+    "email": "",
+    "photoURL": "",
+    "uid": ""
+}
+```
+---
+## /auth/user-data
 
 Save the data we get from User after Google auth
 
-## /data/events
+> POST (user only) (Firebase auth token required)
 
-> GET (public)
+---
+## /data/events
 
 All event details.
 
-## /data/merch
-
 > GET (public)
+
+---
+## /data/merch
 
 All merch details.
 
-## /data/sponsors
-
 > GET (public)
+
+---
+## /data/sponsors
 
 All the sponsor details.
 
-## /data/members
-
 > GET (public)
+
+---
+## /data/members
 
 All the member details.
 
-## /data/user/:userId
+> GET (public)
 
-> GET (user only) (Firebase auth token required) (Bearer token)
+---
+## /data/user/:userId
 
 All the details of a user.
 
-## /data/cart/:userId
-
 > GET (user only) (Firebase auth token required) (Bearer token)
+
+---
+## /data/cart/:userId
 
 Cart items of a user.
 
-## /cart/add
+> GET (user only) (Firebase auth token required) (Bearer token)
 
-> POST (user only) (Firebase auth token required)
+---
+## /cart/add
 
 Add an item to cart.
 
-## /cart/save-local-storage
-
 > POST (user only) (Firebase auth token required)
+
+---
+## /cart/save-local-storage
 
 As Soon as the user login to the Google it will save the cart items of the local storage to the database with others.
 
+> POST (user only) (Firebase auth token required)
+
+---
 ## /cart/remove
+
+Remove an item from cart.
 
 > POST (user only) (Firebase auth token required)
 
-Remove an item from cart.
+---
 
 ## /cart/checkout ????
