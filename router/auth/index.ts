@@ -6,7 +6,7 @@ import { authCheck } from "@middleware";
 const router = Router();
 
 router.use("/google-data", authCheck, googleData);
-router.use("/user-data", userData);
+router.use("/user-data", authCheck, userData);
 
 export default router;
 ``;

@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
   }
 
   // Check if user already exists
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ uid });
   if (user) {
     // Not an error, because google login can also send the data.
     return res.status(200).json({
@@ -31,6 +31,7 @@ router.post("/", async (req, res) => {
   // Create a new user
   try {
     const newUser = new User({
+      createdAt: new Date().toISOString().split("T")[0],
       displayName,
       email,
       photoURL,

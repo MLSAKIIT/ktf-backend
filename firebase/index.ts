@@ -1,6 +1,7 @@
 import { initializeApp, cert } from "firebase-admin/app";
 import { getApps } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
+import { getStorage } from "firebase-admin/storage";
 
 const firebaseAdminConfig = {
   credential: cert({
@@ -10,11 +11,13 @@ const firebaseAdminConfig = {
       ? process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n")
       : undefined,
   }),
+  storageBucket: `${process.env.FIREBASE_PROJECT_ID}.appspot.com`,
 };
 
 if (!getApps().length) {
   initializeApp(firebaseAdminConfig);
 }
 const auth = getAuth();
+const storage = getStorage();
 
-export { auth };
+export { auth, storage };

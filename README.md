@@ -6,28 +6,56 @@ Save the data we get from Google login
 
 > POST (user only) (Firebase auth token required)
 
-### Authentication:
+### Authentication Header:
+
 ```
 Bearer <Firebase auth token>
 ```
 
 ### Body:
+
 ```json
 {
-    "displayName": "",
-    "email": "",
-    "photoURL": "",
-    "uid": ""
+  "displayName": "",
+  "email": "",
+  "photoURL": "",
+  "uid": ""
 }
 ```
+
 ---
+
 ## /auth/user-data
 
 Save the data we get from User after Google auth
 
 > POST (user only) (Firebase auth token required)
 
+### Authentication Header:
+
+```
+Bearer <Firebase auth token>
+```
+
+### Body:
+
+```json
+{
+  "college": "",
+  "phoneNumber": 0,
+  "graduationYear": 0,
+  "course": "",
+  "dob": "",
+  "gender": "",
+  "address": "",
+  "state": "",
+  "pinCode": 0,
+  "uid": ""
+}
+```
+
 ---
+
 ## /data/events
 
 All event details.
@@ -35,6 +63,7 @@ All event details.
 > GET (public)
 
 ---
+
 ## /data/merch
 
 All merch details.
@@ -42,6 +71,7 @@ All merch details.
 > GET (public)
 
 ---
+
 ## /data/sponsors
 
 All the sponsor details.
@@ -49,6 +79,7 @@ All the sponsor details.
 > GET (public)
 
 ---
+
 ## /data/members
 
 All the member details.
@@ -56,6 +87,7 @@ All the member details.
 > GET (public)
 
 ---
+
 ## /data/user/:userId
 
 All the details of a user.
@@ -63,6 +95,7 @@ All the details of a user.
 > GET (user only) (Firebase auth token required) (Bearer token)
 
 ---
+
 ## /data/cart/:userId
 
 Cart items of a user.
@@ -70,6 +103,7 @@ Cart items of a user.
 > GET (user only) (Firebase auth token required) (Bearer token)
 
 ---
+
 ## /cart/add
 
 Add an item to cart.
@@ -77,6 +111,7 @@ Add an item to cart.
 > POST (user only) (Firebase auth token required)
 
 ---
+
 ## /cart/save-local-storage
 
 As Soon as the user login to the Google it will save the cart items of the local storage to the database with others.
@@ -84,6 +119,7 @@ As Soon as the user login to the Google it will save the cart items of the local
 > POST (user only) (Firebase auth token required)
 
 ---
+
 ## /cart/remove
 
 Remove an item from cart.
