@@ -19,7 +19,6 @@ Bearer <Firebase auth token>
   "displayName": "",
   "email": "",
   "photoURL": "",
-  "uid": ""
 }
 ```
 
@@ -49,8 +48,7 @@ Bearer <Firebase auth token>
   "gender": "",
   "address": "",
   "state": "",
-  "pinCode": 0,
-  "uid": ""
+  "pinCode": 0
 }
 ```
 
@@ -88,7 +86,7 @@ All the member details.
 
 ---
 
-## /data/user/:userId
+## /data/user
 
 All the details of a user.
 
@@ -96,7 +94,7 @@ All the details of a user.
 
 ---
 
-## /data/cart/:userId
+## /data/cart
 
 Cart items of a user.
 

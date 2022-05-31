@@ -1,3 +1,4 @@
+import { authCheck } from "@middleware";
 import { Router } from "express";
 import cart from "./cart";
 import events from "./events";
@@ -13,6 +14,6 @@ router.use("/events", events);
 router.use("/members", members);
 router.use("/merch", merch);
 router.use("/sponsors", sponsors);
-router.use("/user", user);
+router.use("/user", authCheck, user);
 
 export default router;

@@ -15,10 +15,12 @@ const UserSchema = new mongoose.Schema({
   state: String,
   pinCode: Number,
   qrCodeUrl: String,
-  createdAt: String,
-  orders: [],
   score: String,
+  createdAt: Date,
+  updatedAt: Date,
+  cart: [],
+  orders: [],
   eventRegistered: [],
 });
 
-export const User = mongoose.models.User || mongoose.model("User", UserSchema);
+export const User = mongoose.model("users", UserSchema);

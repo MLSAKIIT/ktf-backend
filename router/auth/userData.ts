@@ -1,4 +1,4 @@
-import e, { Router } from "express";
+import { Router } from "express";
 import { User } from "@models";
 import { generateQr } from "@utils";
 import { storage } from "@firebase";
@@ -17,8 +17,8 @@ router.post("/", async (req, res) => {
     state,
     pinCode,
     uid,
-    currentUser,
   } = req.body;
+
 
   // Check if any of the fields are empty
   if (
@@ -30,18 +30,10 @@ router.post("/", async (req, res) => {
     !gender ||
     !address ||
     !state ||
-    !pinCode ||
-    !uid
+    !pinCode
   ) {
     return res.status(400).json({
       message: "All fields are required",
-    });
-  }
-
-  // Check if the uid given by user is same as the uid in the token
-  if (uid !== currentUser.uid) {
-    return res.status(401).json({
-      message: "Unauthorized",
     });
   }
 
@@ -77,19 +69,14 @@ router.post("/", async (req, res) => {
     });
 
     // Can be done by both ways, not sure which will be best.
-    const metaData = await file.getMetadata();
-    qrCodeUrl = metaData[0].mediaLink;
+    // const metaData = await file.getMetadata();
+    // qrCodeUrl = metaData[0].mediaLink;
 
-    // qrCodeUrl = await storage
-    //   .bucket()
-    //   .file(`users/${uid}/qrcode.png`)
-    //   .getSignedUrl({
-    //     action: "read",
-    //     expires: "01-01-2050",
-    //   });
+    qrCodeUrl = await storage.bucket().file(`users/${uid}/qrcode.png`).getSignedUrl({
+      action: "read",
+      expires: "01-01-2050",
+    });
   } catch (error: any) {
-    console.log(error);
-
     return res.status(500).json({
       message: "Unable to upload qrcode.",
     });
@@ -108,7 +95,8 @@ router.post("/", async (req, res) => {
       address,
       state,
       pinCode,
-      qrCodeUrl,
+      updatedAt: new Date(),
+      qrCodeUrl: qrCodeUrl[0],
     },
     { new: true },
   );

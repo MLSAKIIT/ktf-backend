@@ -4,19 +4,12 @@ import { User } from "@models";
 const router = Router();
 
 router.post("/", async (req, res) => {
-  const { displayName, email, photoURL, uid, currentUser } = req.body;
+  const { displayName, email, photoURL, uid } = req.body;
 
   // Check if any of the fields are empty
-  if (!displayName || !email || !photoURL || !uid) {
+  if (!displayName || !email || !photoURL) {
     return res.status(400).json({
       message: "All fields are required",
-    });
-  }
-
-  // Check if the uid given by user is same as the uid in the token
-  if (uid !== currentUser.uid) {
-    return res.status(401).json({
-      message: "Unauthorized",
     });
   }
 
@@ -31,11 +24,12 @@ router.post("/", async (req, res) => {
   // Create a new user
   try {
     const newUser = new User({
-      createdAt: new Date().toISOString().split("T")[0],
+      uid,
       displayName,
       email,
       photoURL,
-      uid,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
     await newUser.save();
     return res.status(200).json({
