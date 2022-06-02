@@ -42,9 +42,9 @@ const main = () => {
     connectToDB().then(() => {
       logger("MongoDb connected");
     });
-    seedData().then(() => {
-      logger("Event and Merch Data seeded");
-    });
+    // seedData().then(() => {
+    //   logger("Event and Merch Data seeded");
+    // });
     app.listen(PORT, () => {
       logger(`Server started on port ${PORT}`);
     });

@@ -14,7 +14,8 @@
       "@utils": ["./utils/index.ts"],
       "@middleware": ["./middleware/index.ts"],
       "@firebase": ["./firebase/index.ts"],
-      "@data": ["./data/index.ts"]
+      "@data": ["./data/index.ts"],
+      "@constants": ["./constants/index.ts"]
     }
   },
   "include": ["./**/*.ts"],

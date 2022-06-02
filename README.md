@@ -108,6 +108,30 @@ Add an item to cart.
 
 > POST (user only) (Firebase auth token required)
 
+### Authentication Header:
+
+```
+Bearer <Firebase auth token>
+```
+
+### Body:
+
+```json
+{
+  "eventID": ""
+}
+```
+
+```json
+{
+  "merchID": "",
+  "quantity": 0,
+  "merchSize": ""
+}
+```
+
+### `quantity and merchSize is optional.`
+
 ---
 
 ## /cart/save-local-storage
