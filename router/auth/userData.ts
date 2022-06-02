@@ -19,7 +19,6 @@ router.post("/", async (req, res) => {
     uid,
   } = req.body;
 
-
   // Check if any of the fields are empty
   if (
     !college ||

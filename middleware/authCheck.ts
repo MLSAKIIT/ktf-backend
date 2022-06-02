@@ -18,7 +18,7 @@ export const authCheck = async (req: Request, res: Response, next: NextFunction)
       });
     }
     req.body.currentUser = currentUser;
-    req.body.uid = currentUser.uid
+    req.body.uid = currentUser.uid;
     next();
   } catch (error) {
     return res.status(401).json({

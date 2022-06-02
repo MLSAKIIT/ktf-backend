@@ -18,7 +18,7 @@ Bearer <Firebase auth token>
 {
   "displayName": "",
   "email": "",
-  "photoURL": "",
+  "photoURL": ""
 }
 ```
 

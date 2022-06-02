@@ -1,3 +1,3 @@
 export const logger = (log: string) => {
-    console.log(`[${new Date().toUTCString()}] ${log}`);
-}
+  console.log(`[${new Date().toUTCString()}] ${log}`);
+};

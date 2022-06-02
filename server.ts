@@ -40,13 +40,13 @@ const main = () => {
   try {
     const app = createAppWithMiddleware();
     connectToDB().then(() => {
-      logger("MongoDb connected")
+      logger("MongoDb connected");
     });
-    seedData().then(()=>{
-      logger("Event and Merch Data seeded")
-    })
+    seedData().then(() => {
+      logger("Event and Merch Data seeded");
+    });
     app.listen(PORT, () => {
-      logger(`Server started on port ${PORT}`)
+      logger(`Server started on port ${PORT}`);
     });
   } catch (error) {
     console.log(error);
@@ -57,7 +57,7 @@ main();
 
 const closeApp = () => {
   disconnect().then(() => {
-    logger("MongoDb disconnected")
+    logger("MongoDb disconnected");
     process.exit();
   });
 };
