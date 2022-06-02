@@ -13,7 +13,8 @@
       "@models": ["./models"],
       "@utils": ["./utils/index.ts"],
       "@middleware": ["./middleware/index.ts"],
-      "@firebase": ["./firebase/index.ts"]
+      "@firebase": ["./firebase/index.ts"],
+      "@data": ["./data/index.ts"]
     }
   },
   "include": ["./**/*.ts"],
