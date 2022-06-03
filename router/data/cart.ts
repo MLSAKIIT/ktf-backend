@@ -8,7 +8,9 @@ router.get("/", async (req, res) => {
     currentUser: { uid },
   } = req.body;
 
-  const cart = await User.findOne({ uid }, { cart: 1 });
+  const user = await User.findOne({ uid }, "cart -_id ");
+  const { cart } = user;
+  res.json(cart);
 });
 
 export default router;

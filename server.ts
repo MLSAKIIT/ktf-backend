@@ -4,10 +4,7 @@ import router from "./router";
 import { connect, ConnectOptions, disconnect } from "mongoose";
 import morgan from "morgan";
 import { logger, seedData } from "@utils";
-
-// Configs
-const PORT = process.env.PORT || 8000;
-const MONGO_URI: string = process.env.MONGO_URI || "mongodb://localhost/ktf";
+import { MONGO_URI, PORT, SEED_DATA } from "@constants";
 
 // Middleware
 const createAppWithMiddleware = (): Express => {
@@ -42,9 +39,13 @@ const main = () => {
     connectToDB().then(() => {
       logger("MongoDb connected");
     });
-    // seedData().then(() => {
-    //   logger("Event and Merch Data seeded");
-    // });
+    if (SEED_DATA) {
+      seedData().then(() => {
+        logger("Event and Merch Data seeded");
+      });
+    } else {
+      logger("Seeding disabled");
+    }
     app.listen(PORT, () => {
       logger(`Server started on port ${PORT}`);
     });
