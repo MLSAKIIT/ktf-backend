@@ -1,3 +1,4 @@
+import { newAmount } from "@utils";
 import { Router } from "express";
 import { User, Event, Merch } from "@models";
 import { COUPON_DISCOUNT } from "@constants";
@@ -58,15 +59,10 @@ router.post("/", async (req, res) => {
     }
 
     const newItems = [...(items || []), newEvent];
-    let newAmount: number = newItems.reduce((acc, item) => acc + item.price, 0);
-
-    if (couponApplied) {
-      newAmount = parseInt((newAmount * COUPON_DISCOUNT).toFixed(0));
-    }
 
     const newCart = {
       couponApplied,
-      amount: newAmount,
+      amount: newAmount(newItems, couponApplied),
       items: newItems,
     };
 
@@ -113,12 +109,12 @@ router.post("/", async (req, res) => {
       quantity,
     };
     let alreadyInCart = false;
-    let itemInIndex = 0;
+    // let itemInIndex = 0;
 
     items.map((item: any, i: number) => {
       if (item.id === merchID) {
         alreadyInCart = true;
-        itemInIndex = i;
+        // itemInIndex = i;
       }
     });
 

@@ -126,11 +126,19 @@ As Soon as the user login to the Google it will save the cart items of the local
 
 ---
 
-## /cart/remove
+## /cart/remove/:id
 
 Remove an item from cart.
 
-> POST (user only) (Firebase auth token required)
+> DELETE (user only) (Firebase auth token required)
+
+### Authentication Header:
+
+```
+Bearer <Firebase auth token>
+```
+
+### `:id will contain the eventID or merchID.`
 
 ---
 
