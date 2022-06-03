@@ -70,22 +70,6 @@ All merch details.
 
 ---
 
-## /data/sponsors
-
-All the sponsor details.
-
-> GET (public)
-
----
-
-## /data/members
-
-All the member details.
-
-> GET (public)
-
----
-
 ## /data/user
 
 All the details of a user.
