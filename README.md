@@ -102,13 +102,13 @@ Bearer <Firebase auth token>
 
 ```json
 {
-  "eventID": ""
+  "eventID": 0
 }
 ```
 
 ```json
 {
-  "merchID": "",
+  "merchID": 0,
   "quantity": 0,
   "merchSize": ""
 }
@@ -132,6 +132,21 @@ Update the quantity and size of an item in cart.
 
 > POST (user only) (Firebase auth token required)
 
+### Authentication Header:
+
+```
+Bearer <Firebase auth token>
+```
+
+### Body:
+
+```json
+{
+  "merchID": 0,
+  "quantity": 0,
+  "merchSize": ""
+}
+
 ---
 
 ## /cart/remove/:id
@@ -143,7 +158,9 @@ Remove an item from cart.
 ### Authentication Header:
 
 ```
+
 Bearer <Firebase auth token>
+
 ```
 
 ### `:id will contain the eventID or merchID.`
@@ -151,3 +168,4 @@ Bearer <Firebase auth token>
 ---
 
 ## /cart/checkout ????
+```

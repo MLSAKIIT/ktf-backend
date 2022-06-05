@@ -131,7 +131,9 @@ router.post("/", async (req, res) => {
       });
     }
 
-    let newAmount: number = newItems.reduce((acc, item) => acc + item.price, 0);
+    let newAmount: number = newItems.reduce((acc, item) => {
+      return item.type === "event" ? acc + item.price : acc + item.price * item.quantity;
+    }, 0);
 
     if (couponApplied) {
       newAmount = parseInt((newAmount * COUPON_DISCOUNT).toFixed(0));
