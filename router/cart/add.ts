@@ -43,7 +43,7 @@ router.post("/", async (req, res) => {
       price,
       imageUrl,
       type: "event",
-      id: eventID,
+      id: parseInt(eventID, 10),
       added_on: new Date(),
     };
     let alreadyInCart = false;
@@ -103,7 +103,7 @@ router.post("/", async (req, res) => {
       price,
       imageUrl,
       type: "merch",
-      id: merchID,
+      id: parseInt(merchID, 10),
       added_on: new Date(),
       merchSize,
       quantity,

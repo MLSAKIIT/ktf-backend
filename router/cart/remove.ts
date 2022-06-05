@@ -25,7 +25,6 @@ router.delete("/:id", async (req, res) => {
             id: parseInt(id, 10),
           },
         },
-        "cart.amount": "",
       },
       { safe: true, multi: false },
     );
@@ -38,8 +37,6 @@ router.delete("/:id", async (req, res) => {
     await updateAmountInDB(uid);
     res.json({
       message: "Successfully removed item from cart",
-      update: JSON.stringify(update),
-      user: JSON.stringify(await User.findOne({ uid })),
     });
   } catch (err) {
     return res.status(500).send({
