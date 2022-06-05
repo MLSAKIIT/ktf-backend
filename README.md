@@ -126,6 +126,14 @@ As Soon as the user login to the Google it will save the cart items of the local
 
 ---
 
+## /cart/update
+
+Update the quantity and size of an item in cart.
+
+> POST (user only) (Firebase auth token required)
+
+---
+
 ## /cart/remove/:id
 
 Remove an item from cart.

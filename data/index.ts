@@ -35,3 +35,4 @@ export const events = [
     imageUrl: "https://imgur.com/t/gaming/p9FzRMj",
   },
 ];
+
