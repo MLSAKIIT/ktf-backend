@@ -4,7 +4,7 @@ const MerchSchema = new mongoose.Schema({
   name: String,
   description: String,
   price: Number,
-  merchID: String,
+  merchID: Number,
   imageUrl: String,
   availableSize: [],
 });
