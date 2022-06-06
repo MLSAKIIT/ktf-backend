@@ -118,7 +118,7 @@ Bearer <Firebase auth token>
 
 ---
 
-## /cart/save-local-storage
+## /cart/save-local-storage ??
 
 As Soon as the user login to the Google it will save the cart items of the local storage to the database with others.
 
@@ -146,6 +146,7 @@ Bearer <Firebase auth token>
   "quantity": 0,
   "merchSize": ""
 }
+```
 
 ---
 
@@ -168,4 +169,7 @@ Bearer <Firebase auth token>
 ---
 
 ## /cart/checkout ????
+
+```
+
 ```

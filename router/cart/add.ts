@@ -1,7 +1,6 @@
-import { newAmount } from "@utils";
+import { newAmount, verifyCoupon } from "@utils";
 import { Router } from "express";
 import { User, Event, Merch } from "@models";
-import { COUPON_DISCOUNT } from "@constants";
 
 const router = Router();
 
@@ -26,7 +25,7 @@ router.post("/", async (req, res) => {
   let newMerch;
   const user = await User.findOne({ uid }, "cart -_id");
 
-  const { cart: { items = [], couponApplied = false } = {} } = user;
+  const { cart: { items = [], couponApplied = false, coupon = null } = {} } = user;
 
   // If event is provided
   if (eventID) {
@@ -62,7 +61,7 @@ router.post("/", async (req, res) => {
 
     const newCart = {
       couponApplied,
-      amount: newAmount(newItems, couponApplied),
+      amount: await newAmount(newItems, couponApplied, coupon),
       items: newItems,
     };
 
@@ -135,8 +134,8 @@ router.post("/", async (req, res) => {
       return item.type === "event" ? acc + item.price : acc + item.price * item.quantity;
     }, 0);
 
-    if (couponApplied) {
-      newAmount = parseInt((newAmount * COUPON_DISCOUNT).toFixed(0));
+    if (couponApplied && coupon) {
+      newAmount = parseInt((newAmount * (await verifyCoupon(coupon)).discount).toFixed(0));
     }
 
     const newCart = {

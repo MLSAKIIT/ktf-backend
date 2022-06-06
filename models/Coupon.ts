@@ -5,7 +5,7 @@ const CouponSchema = new mongoose.Schema({
   discount: Number,
   type: String,
   description: String,
-  count: Number,
+  count: { type: Number, default: 0 },
   userUids: [],
 });
 

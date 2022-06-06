@@ -7,17 +7,6 @@ const EventSchema = new mongoose.Schema({
   eventID: Number,
   price: Number,
   imageUrl: String,
-  userRegistered: [
-    {
-      uid: String,
-      displayName: String,
-      email: String,
-      checkedIn: {
-        type: Boolean,
-        default: false,
-      },
-    },
-  ],
 });
 
 export const Event = mongoose.model("events", EventSchema);

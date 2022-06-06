@@ -1,16 +1,9 @@
 import mongoose from "mongoose";
 
 const CartSchema = new mongoose.Schema({
-  amount: {
-    type: Number,
-    required: true,
-    default: 0,
-  },
-  couponApplied: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
+  amount: { type: Number, required: true, default: 0 },
+  couponApplied: { type: Boolean, required: true, default: false },
+  coupon: String,
   items: [],
 });
 
@@ -33,8 +26,15 @@ const UserSchema = new mongoose.Schema({
   createdAt: Date,
   updatedAt: Date,
   cart: CartSchema,
-  orders: [],
-  eventRegistered: [],
+  eventRegistered: [
+    {
+      name: String,
+      description: String,
+      eventDate: String,
+      eventID: Number,
+      checkedIn: { type: Boolean, default: false },
+    },
+  ],
 });
 
 export const User = mongoose.model("users", UserSchema);
