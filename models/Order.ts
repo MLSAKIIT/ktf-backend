@@ -7,9 +7,9 @@ const OrderSchema = new mongoose.Schema({
   amount: Number,
   couponApplied: { type: Boolean, default: false },
   completed: { type: Boolean, default: false },
-  razorpay_payment_id: String,
-  created_order_id: String,
+  original_order_id: String,
   razorpay_order_id: String,
+  razorpay_payment_id: String,
   razorpay_signature: String,
   //   other_details: String,????
 });

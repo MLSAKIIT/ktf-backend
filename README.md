@@ -168,8 +168,96 @@ Bearer <Firebase auth token>
 
 ---
 
-## /cart/checkout ????
+## /cart/add-coupon
+
+Add coupon to cart.
+
+> POST (user only) (Firebase auth token required)
+
+### Authentication Header:
 
 ```
 
+Bearer <Firebase auth token>
+
 ```
+
+### Body
+
+  
+  ```json
+  {
+    "coupon": ""
+  }
+  ```
+
+---
+
+## /cart/remove-coupon
+
+Add coupon to cart.
+
+> GET (user only) (Firebase auth token required)
+
+### Authentication Header:
+
+```
+
+Bearer <Firebase auth token>
+
+```
+
+---
+
+## /payment/order
+
+Create an order.
+
+> GET (user only) (Firebase auth token required)
+
+### Authentication Header:
+
+```
+
+Bearer <Firebase auth token>
+
+```
+
+### Return value
+
+```json
+{
+  "orderID": "",
+  "amount": 0,
+  "currency": ""
+}
+```
+
+---
+
+## /payment/verify
+
+Verify and save the payment details.
+
+> POST (user only) (Firebase auth token required)
+
+### Authentication Header:
+
+```
+
+Bearer <Firebase auth token>
+
+```
+
+### Body:
+
+```json
+{
+  "orderID": "",
+  "razorpayOrderID": "",
+  "razorpayPaymentID": "",
+  "razorpaySignature": ""
+}
+```
+
+---
