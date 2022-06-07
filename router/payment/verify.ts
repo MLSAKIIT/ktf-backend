@@ -16,6 +16,11 @@ router.post("/", async (req, res) => {
         message: "Payment verification failed",
       });
     }
+    
+    console.log(body);
+    console.log(body.payload.payment.entity);
+    
+    
     const newOrder = new Order({
       ...body,
       uid: body.payload.payment.entity.notes[0].uid,

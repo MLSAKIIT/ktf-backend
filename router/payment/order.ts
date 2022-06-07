@@ -8,8 +8,9 @@ const router = Router();
 
 router.get("/", async (req, res) => {
   const {
-    currentUser: { uid },
+    // currentUser: { uid },
   } = req.body;
+  const uid = "0ePnSHf7CnMoq61ZiBfiLxarDrA2"
   try {
     const user = await User.findOne({ uid }, "cart -_id");
     const { cart } = user;
@@ -36,6 +37,7 @@ router.get("/", async (req, res) => {
       currency: order.currency,
     });
   } catch (err) {
+    console.log(err);
     return res.status(500).json({
       message: "Error creating order",
     });
