@@ -7,7 +7,8 @@ import checkIn from "./checkIn";
 const router = Router();
 
 router.use("/add-coupons", adminCheck, addCoupons);
-router.use("/check", adminCheck, check);
+// router.use("/check", adminCheck, check);
+router.use("/check", check);
 router.use("/check-in", adminCheck, checkIn);
 
 export default router;
