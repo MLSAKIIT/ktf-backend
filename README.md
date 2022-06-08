@@ -184,12 +184,11 @@ Bearer <Firebase auth token>
 
 ### Body
 
-  
-  ```json
-  {
-    "coupon": ""
-  }
-  ```
+```json
+{
+  "coupon": ""
+}
+```
 
 ---
 
@@ -254,7 +253,6 @@ Bearer <Firebase auth token>
 ```json
 {
   "orderID": "",
-  "razorpayOrderID": "",
   "razorpayPaymentID": "",
   "razorpaySignature": ""
 }

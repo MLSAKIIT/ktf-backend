@@ -17,14 +17,11 @@ router.get("/", async (req, res) => {
     const amount = cart.amount * 100;
     const currency = "INR";
     const receipt = `Receipt#${shortUID(8)}`;
-    const instance = new Razorpay({ key_id: RAZORPAY_ID, key_secret: RAZORPAY_SECRET });
-    const order = await instance.orders.create({
+    const razorpay = new Razorpay({ key_id: RAZORPAY_ID, key_secret: RAZORPAY_SECRET });
+    const order = await razorpay.orders.create({
       amount,
       currency,
       receipt,
-      notes: {
-        uid,
-      },
     });
     if (!order) {
       return res.status(500).send({

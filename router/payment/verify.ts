@@ -1,37 +1,117 @@
 import { Router } from "express";
+import Razorpay from "razorpay";
 import crypto from "crypto";
-import { RAZORPAY_VERIFICATION_SECRET } from "@constants";
-import { Order } from "@models";
+import { Order, User } from "@models";
+import { RAZORPAY_ID, RAZORPAY_SECRET } from "@constants";
 
 const router = Router();
 
 router.post("/", async (req, res) => {
-  const body = req.body;
+  const {
+    orderID,
+    razorpayPaymentID,
+    razorpaySignature,
+    currentUser: { uid },
+  } = req.body;
+
+  if (!orderID || !razorpayPaymentID || !razorpaySignature) {
+    return res.status(400).json({
+      message: "Please provide all required fields",
+    });
+  }
+
   try {
-    const shasum = crypto.createHmac("sha256", RAZORPAY_VERIFICATION_SECRET as string);
-    shasum.update(JSON.stringify(body));
-    const digest = shasum.digest("hex");
-    if (digest !== req.headers["x-razorpay-signature"]) {
+    const hash = crypto
+      .createHmac("sha256", RAZORPAY_SECRET as string)
+      .update(`${orderID}|${razorpayPaymentID}`)
+      .digest("hex");
+
+    if (hash !== razorpaySignature) {
       return res.status(400).json({
-        message: "Payment verification failed",
+        message: "Invalid signature",
       });
     }
-    
-    console.log(body);
-    console.log(body.payload.payment.entity);
-    
-    
+
+    const user = await User.findOne({ uid }, "cart eventRegistered -_id");
+    const { cart, eventRegistered } = user;
+    const razorpay = new Razorpay({ key_id: RAZORPAY_ID, key_secret: RAZORPAY_SECRET });
+    const paymentDetails = await razorpay.payments.fetch(razorpayPaymentID);
+    const {
+      amount: paidAmount,
+      currency,
+      method,
+      status,
+      description,
+      email,
+      contact,
+      fee,
+      created_at,
+      tax,
+    } = paymentDetails;
     const newOrder = new Order({
-      ...body,
-      uid: body.payload.payment.entity.notes[0].uid,
+      uid,
+      orderID,
+      paymentID: razorpayPaymentID,
+      signature: razorpaySignature,
+      amount: cart.amount,
+      couponApplied: cart.couponApplied,
+      coupon: cart.coupon,
+      items: cart.items,
+      paidAmount: paidAmount / 100,
+      currency,
+      method,
+      status,
+      description,
+      email,
+      contact,
+      fee,
+      createdAt: new Date(created_at),
+      tax,
     });
-    await newOrder.save();
+    let newEventRegistered = [...eventRegistered];
+    cart.items.map((item: any) => {
+      if (item.type === "event") {
+        newEventRegistered.push({
+          name: item.name,
+          eventDate: item.eventDate,
+          eventID: item.id,
+          checkedIn: false,
+        });
+      }
+    });
+
+    await Promise.all([
+      User.updateOne(
+        { uid },
+        {
+          $set: {
+            eventRegistered: newEventRegistered,
+          },
+        },
+        { safe: true, multi: false, upsert: true },
+      ),
+      newOrder.save(),
+    ]);
+
+    await User.updateOne(
+      { uid },
+      {
+        $set: {
+          "cart.items": [],
+          "cart.amount": 0,
+          "cart.couponApplied": false,
+          "cart.coupon": "",
+        },
+      },
+      { safe: true, multi: false, upsert: true },
+    );
+
     return res.status(200).json({
-      message: "Payment verification success",
+      message: "Data Saved Successfully",
     });
   } catch (err) {
     return res.status(500).json({
-      message: "Internal Server Error",
+      message: "Something went wrong",
     });
   }
 });

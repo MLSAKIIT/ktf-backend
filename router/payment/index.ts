@@ -6,7 +6,6 @@ import verify from "./verify";
 const router = Router();
 
 router.use("/order", authCheck, order);
-router.use("/verify", verify);
-// router.use("/verify", authCheck, verify);
+router.use("/verify", authCheck, verify);
 
 export default router;

@@ -2,16 +2,23 @@ import mongoose from "mongoose";
 
 const OrderSchema = new mongoose.Schema({
   uid: String,
-  items: [],
   orderID: String,
+  paymentID: String,
+  signature: String,
   amount: Number,
   couponApplied: { type: Boolean, default: false },
-  completed: { type: Boolean, default: false },
-  original_order_id: String,
-  razorpay_order_id: String,
-  razorpay_payment_id: String,
-  razorpay_signature: String,
-  //   other_details: String,????
+  coupon: String,
+  items: [],
+  paidAmount: Number,
+  currency: String,
+  method: String,
+  status: String,
+  description: String,
+  email: String,
+  contact: String,
+  fee: Number,
+  created_at: String,
+  tax: Number,
 });
 
 export const Order = mongoose.model("orders", OrderSchema);

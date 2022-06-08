@@ -29,7 +29,6 @@ const UserSchema = new mongoose.Schema({
   eventRegistered: [
     {
       name: String,
-      description: String,
       eventDate: String,
       eventID: Number,
       checkedIn: { type: Boolean, default: false },
