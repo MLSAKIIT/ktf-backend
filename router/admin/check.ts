@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Coupon, User } from "@models";
+import { User } from "@models";
 
 const router = Router();
 
@@ -10,6 +10,11 @@ router.post("/", async (req, res) => {
     const { eventRegistered } = user;
     let isRegistered = false;
     let eventData: any;
+    if (!eventRegistered || eventRegistered.length === 0) {
+      return res.status(200).json({
+        message: "User not registered for the event",
+      });
+    }
     eventRegistered.map((event: any) => {
       if (event.eventID === eventID) {
         if (event.checkedIn) {
