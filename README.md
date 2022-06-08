@@ -259,3 +259,80 @@ Bearer <Firebase auth token>
 ```
 
 ---
+
+## /admin/add-coupons
+
+Add new coupons.
+
+> POST (admin only) (Firebase auth token required)
+
+### Authentication Header:
+
+```
+
+Bearer <Firebase auth token>
+
+```
+
+### Body:
+
+```json
+{
+  "code": "",
+  "discount": 0,
+  "type": "",
+  "description": ""
+}
+```
+
+---
+
+## /admin/check
+
+Check if the user is registered in the event
+
+> POST (admin only) (Firebase auth token required)
+
+### Authentication Header:
+
+```
+
+Bearer <Firebase auth token>
+
+```
+
+### Body:
+
+```json
+{
+  "uid": "",
+  "eventID": ""
+}
+```
+
+---
+
+## /admin/check-in
+
+Check if the user is checked in the event
+
+> POST (admin only) (Firebase auth token required)
+
+### Authentication Header:
+
+```
+
+Bearer <Firebase auth token>
+
+```
+
+### Body:
+
+```json
+{
+  "uid": "",
+  "eventID": ""
+}
+```
+
+---

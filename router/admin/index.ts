@@ -1,13 +1,13 @@
 import { Router } from "express";
 import { adminCheck } from "@middleware";
-// import login from "./login"
-// import register from "./register"
 import addCoupons from "./addCoupon";
+import check from "./check";
+import checkIn from "./checkIn";
 
 const router = Router();
 
-// router.use("/login", adminCheck, login);
-// router.use("/register", adminCheck, register);
-router.use("/add-coupons", addCoupons); // admin check should be added.
+router.use("/add-coupons", adminCheck, addCoupons);
+router.use("/add-coupons", adminCheck, check);
+router.use("/add-coupons", adminCheck, checkIn);
 
 export default router;

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import Razorpay from "razorpay";
 import crypto from "crypto";
-import { Order, User } from "@models";
+import { Coupon, Order, User } from "@models";
 import { RAZORPAY_ID, RAZORPAY_SECRET } from "@constants";
 
 const router = Router();
@@ -35,6 +35,7 @@ router.post("/", async (req, res) => {
     const user = await User.findOne({ uid }, "cart eventRegistered -_id");
     const { cart, eventRegistered } = user;
     const razorpay = new Razorpay({ key_id: RAZORPAY_ID, key_secret: RAZORPAY_SECRET });
+    // Get the payment details from the user
     const paymentDetails = await razorpay.payments.fetch(razorpayPaymentID);
     const {
       amount: paidAmount,
@@ -48,6 +49,8 @@ router.post("/", async (req, res) => {
       created_at,
       tax,
     } = paymentDetails;
+
+    // Create the order
     const newOrder = new Order({
       uid,
       orderID,
@@ -68,6 +71,8 @@ router.post("/", async (req, res) => {
       createdAt: new Date(created_at),
       tax,
     });
+
+    // Take out the event from the cart.
     let newEventRegistered = [...eventRegistered];
     cart.items.map((item: any) => {
       if (item.type === "event") {
@@ -81,6 +86,7 @@ router.post("/", async (req, res) => {
     });
 
     await Promise.all([
+      // Add event registered to user so we can check while checking in.
       User.updateOne(
         { uid },
         {
@@ -90,9 +96,20 @@ router.post("/", async (req, res) => {
         },
         { safe: true, multi: false, upsert: true },
       ),
+      // Save the new order
       newOrder.save(),
+      // Add the user to the Coupon to keep track of who has used the coupon
+      Coupon.updateOne(
+        { code: cart.coupon },
+        {
+          $push: {
+            userUids: uid,
+          },
+        },
+        { safe: true, multi: false, upsert: true },
+      ),
     ]);
-
+    // reset the cart
     await User.updateOne(
       { uid },
       {
