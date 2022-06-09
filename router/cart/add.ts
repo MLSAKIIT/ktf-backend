@@ -23,9 +23,11 @@ router.post("/", async (req, res) => {
   let merch;
   let newEvent;
   let newMerch;
+  let alreadyInCart = false;
   const user = await User.findOne({ uid }, "cart eventRegistered -_id");
 
-  const { cart: { items = [], couponApplied = false, coupon = null } = {}, eventRegistered = [] } = user;
+  const { cart: { items = [], couponApplied = false, coupon = null } = {}, eventRegistered = [] } =
+    user;
 
   // If event is provided
   if (eventID) {
@@ -37,13 +39,14 @@ router.post("/", async (req, res) => {
     }
     eventRegistered.map((event: any) => {
       if (event.eventID === eventID) {
-        return res.status(500).send({
-          message: "You have already registered for this event",
-        });
+        alreadyInCart = true;
       }
     });
-
-
+    if (alreadyInCart) {
+      return res.status(500).send({
+        message: "You have already registered for this event",
+      });
+    }
 
     const { name, eventDate, price, imageUrl } = event;
     newEvent = {
@@ -55,7 +58,7 @@ router.post("/", async (req, res) => {
       id: parseInt(eventID, 10),
       addedOn: new Date(),
     };
-    let alreadyInCart = false;
+
     items.map((item: any) => {
       if (item.id === eventID) {
         alreadyInCart = true;
