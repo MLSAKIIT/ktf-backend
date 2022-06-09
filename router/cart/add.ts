@@ -23,10 +23,9 @@ router.post("/", async (req, res) => {
   let merch;
   let newEvent;
   let newMerch;
-  const user = await User.findOne({ uid }, "cart -_id");
+  const user = await User.findOne({ uid }, "cart eventRegistered -_id");
 
-  const { cart: { items = [], couponApplied = false, coupon = null } = {}, eventRegistered = [] } =
-    user;
+  const { cart: { items = [], couponApplied = false, coupon = null } = {}, eventRegistered = [] } = user;
 
   // If event is provided
   if (eventID) {
@@ -43,6 +42,9 @@ router.post("/", async (req, res) => {
         });
       }
     });
+
+
+
     const { name, eventDate, price, imageUrl } = event;
     newEvent = {
       name,
