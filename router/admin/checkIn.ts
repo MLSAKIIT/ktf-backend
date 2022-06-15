@@ -1,10 +1,15 @@
 import { Router } from "express";
-import { Coupon, User } from "@models";
+import { User } from "@models";
 
 const router = Router();
 
 router.post("/", async (req, res) => {
   const { uid, eventID } = req.body;
+
+  if (!uid || !eventID) {
+    return res.status(400).send("Missing required fields");
+  }
+
   try {
     const update = await User.updateOne(
       { uid, "eventRegistered.eventID": eventID },

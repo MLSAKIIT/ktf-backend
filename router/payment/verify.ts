@@ -67,9 +67,9 @@ router.post("/", async (req, res) => {
       description,
       email,
       contact,
-      fee,
+      fee: fee / 100,
       createdAt: new Date(created_at),
-      tax,
+      tax: tax / 100,
     });
 
     // Take out the event from the cart.
