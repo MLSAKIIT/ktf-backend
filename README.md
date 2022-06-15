@@ -331,7 +331,7 @@ Bearer <Firebase auth token>
 ```json
 {
   "uid": "",
-  "eventID": ""
+  "eventID": 0
 }
 ```
 

@@ -12,7 +12,10 @@ router.post("/", async (req, res) => {
 
   try {
     const update = await User.updateOne(
-      { uid, "eventRegistered.eventID": eventID },
+      {
+        uid,
+        "eventRegistered.eventID": typeof eventID === "string" ? parseInt(eventID, 10) : eventID,
+      },
       {
         $set: {
           "eventRegistered.$.checkedIn": true,
