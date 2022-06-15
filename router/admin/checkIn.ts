@@ -7,7 +7,9 @@ router.post("/", async (req, res) => {
   const { uid, eventID } = req.body;
 
   if (!uid || !eventID) {
-    return res.status(400).send("Missing required fields");
+    return res.status(400).send({
+      message: "Missing uid or eventID",
+    });
   }
 
   try {
@@ -25,7 +27,7 @@ router.post("/", async (req, res) => {
     );
     if (!update.modifiedCount) {
       return res.status(404).send({
-        message: "Already checked in",
+        message: "Already checked in or not registered for event",
       });
     }
     return res.status(200).json({
