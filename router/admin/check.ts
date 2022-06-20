@@ -5,6 +5,13 @@ const router = Router();
 
 router.post("/", async (req, res) => {
   const { uid, eventID } = req.body;
+
+  if (!uid || !eventID) {
+    return res.status(400).send({
+      message: "Missing uid or eventID",
+    });
+  }
+
   try {
     const user = await User.findOne({ uid }, "eventRegistered -_id");
 
@@ -13,7 +20,7 @@ router.post("/", async (req, res) => {
     let isRegistered = false;
     let eventData: any;
 
-    if (!eventRegistered || eventRegistered.length === 0) {
+    if (!eventRegistered || eventRegistered?.length === 0) {
       return res.status(200).json({
         message: "User not registered for the event",
       });
