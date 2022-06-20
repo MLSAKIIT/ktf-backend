@@ -8,6 +8,6 @@ const router = Router();
 
 router.use("/add-coupons", adminCheck, addCoupons);
 router.use("/check-in", adminCheck, checkIn);
-router.use("/check", check);
+router.use("/check", adminCheck, check);
 
 export default router;
