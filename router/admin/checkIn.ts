@@ -25,11 +25,10 @@ router.post("/", async (req, res) => {
       },
       { safe: true, multi: false },
     );
-    
+
     if (!update.modifiedCount) {
       return res.status(404).send({
         message: "Already checked in or not registered for event",
-        update: JSON.stringify(update)
       });
     }
     return res.status(200).json({
