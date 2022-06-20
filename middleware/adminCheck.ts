@@ -17,8 +17,8 @@ export const adminCheck = async (req: Request, res: Response, next: NextFunction
         message: "Access denied. Invalid token",
       });
     }
-    req.body.currentUser = currentUser;
-    req.body.uid = currentUser.uid;
+    // req.body.currentUser = currentUser;
+    // req.body.uid = currentUser.uid;
     next();
   } catch (error) {
     return res.status(401).json({

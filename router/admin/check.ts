@@ -34,11 +34,6 @@ router.post("/", async (req, res) => {
 
     eventRegistered.map((event: any) => {
       if (event.eventID === eventID) {
-        if (event.checkedIn) {
-          return res.status(400).json({
-            message: "User already checked in",
-          });
-        }
         isRegistered = true;
         eventData = {
           name: event.name,
