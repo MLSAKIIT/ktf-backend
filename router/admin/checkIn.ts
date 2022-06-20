@@ -13,6 +13,42 @@ router.post("/", async (req, res) => {
   }
 
   try {
+    const user = await User.findOne({ uid }, "eventRegistered -_id");
+
+    if (!user) {
+      return res.status(400).send({
+        message: "User not found",
+      });
+    }
+    const { eventRegistered } = user;
+
+    if (!eventRegistered || eventRegistered?.length === 0) {
+      return res.status(200).json({
+        message: "User not registered for the event",
+      });
+    }
+
+    let isRegistered = false;
+    let eventData: any;
+    eventRegistered.map(async (e: any) => {
+      if (e.eventID === eventID) {
+        isRegistered = true;
+        eventData = e;
+      }
+    });
+
+    if (!isRegistered) {
+      return res.status(200).json({
+        message: "User not registered for the event",
+      });
+    }
+
+    if (eventData.checkedIn) {
+      return res.status(400).json({
+        message: "User already checked in",
+      });
+    }
+
     const update = await User.updateOne(
       {
         uid,
@@ -28,9 +64,10 @@ router.post("/", async (req, res) => {
 
     if (!update.modifiedCount) {
       return res.status(404).send({
-        message: "Already checked in or not registered for event",
+        message: "Unable to check in user",
       });
     }
+
     return res.status(200).json({
       message: `Successfully checked in`,
     });

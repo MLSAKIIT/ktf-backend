@@ -15,6 +15,12 @@ router.post("/", async (req, res) => {
   try {
     const user = await User.findOne({ uid }, "eventRegistered -_id");
 
+    if (!user) {
+      return res.status(400).send({
+        message: "User not found",
+      });
+    }
+
     const { eventRegistered } = user;
 
     let isRegistered = false;
@@ -25,6 +31,7 @@ router.post("/", async (req, res) => {
         message: "User not registered for the event",
       });
     }
+
     eventRegistered.map((event: any) => {
       if (event.eventID === eventID) {
         if (event.checkedIn) {
