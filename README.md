@@ -86,6 +86,14 @@ Cart items of a user.
 
 ---
 
+## /data/my-orders
+
+Purchase history of a user.
+
+> GET (user only) (Firebase auth token required) (Bearer token)
+
+---
+
 ## /cart/add
 
 Add an item to cart.
